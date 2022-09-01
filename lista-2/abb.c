@@ -146,20 +146,12 @@ int maior_ramo(Arvore *a)
   return a->info + (valorEsq > valorDir ? valorEsq : valorDir);
 }
 
-void pre_order(Arvore *a)
-{
-  if (a != NULL)
-  {
-    printf("%d ", a->info);
-    pre_order(a->esq);
-    pre_order(a->dir);
-  }
-}
-
 //========= Q5 - busca em ordenado e aleatorio =====
 
-Arvore *insere_ordenado(Arvore *a, int quantidade)
+Arvore *cria_arvore_ordenada(int quantidade)
 {
+  Arvore *a = cria_arvore_vazia();
+
   for (int i = 0; i < quantidade; i++)
   {
     a = inserir(a, i);
@@ -168,8 +160,10 @@ Arvore *insere_ordenado(Arvore *a, int quantidade)
   return a;
 }
 
-Arvore *insere_aleatorio(Arvore *a, int quantidade)
+Arvore *cria_arvore_aleatoria(int quantidade)
 {
+  Arvore *a = cria_arvore_vazia();
+
   srand(time(NULL));
 
   for (int i = 0; i < quantidade; i++)
@@ -178,6 +172,18 @@ Arvore *insere_aleatorio(Arvore *a, int quantidade)
   }
 
   return a;
+}
+
+//===================================
+
+void pre_order(Arvore *a)
+{
+  if (a != NULL)
+  {
+    printf("%d ", a->info);
+    pre_order(a->esq);
+    pre_order(a->dir);
+  }
 }
 
 int main()
@@ -231,8 +237,7 @@ int main()
   printf("\n\nExercicio 5\n");
   printf("a) ");
 
-  Arvore *ordenada = cria_arvore_vazia();
-  ordenada = insere_ordenado(ordenada, 100000);
+  Arvore *ordenada = cria_arvore_ordenada(100000);
 
   clock_t t1;
   t1 = clock();
@@ -246,8 +251,7 @@ int main()
 
   printf("\nb) ");
 
-  Arvore *aleatoria = cria_arvore_vazia();
-  aleatoria = insere_aleatorio(aleatoria, 100000);
+  Arvore *aleatoria = cria_arvore_aleatoria(100000);
 
   clock_t t2;
   t2 = clock();
